@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.viewpagertransformer;
+package com.wkz.viewpager;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -10,15 +10,36 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hss01248.lib.MyItemDialogListener;
 import com.hss01248.lib.StytledDialog;
+import com.wkz.viewpager.transformer.AccordionTransformer;
+import com.wkz.viewpager.transformer.BackgroundToForegroundTransformer;
+import com.wkz.viewpager.transformer.CubeInTransformer;
+import com.wkz.viewpager.transformer.CubeOutTransformer;
+import com.wkz.viewpager.transformer.DefaultTransformer;
+import com.wkz.viewpager.transformer.DepthPageTransformer;
+import com.wkz.viewpager.transformer.FlipHorizontalTransformer;
+import com.wkz.viewpager.transformer.FlipVerticalTransformer;
+import com.wkz.viewpager.transformer.ForegroundToBackgroundTransformer;
+import com.wkz.viewpager.transformer.OverspreadTransformer;
+import com.wkz.viewpager.transformer.RotateDownTransformer;
+import com.wkz.viewpager.transformer.RotateUpTransformer;
+import com.wkz.viewpager.transformer.ScaleInOutTransformer;
+import com.wkz.viewpager.transformer.StackTransformer;
+import com.wkz.viewpager.transformer.TabletTransformer;
+import com.wkz.viewpager.transformer.ZoomInTransformer;
+import com.wkz.viewpager.transformer.ZoomOutSlideTransformer;
+import com.wkz.viewpager.transformer.ZoomOutTransformer;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 切换转换效果
      */
     private Button mBtnChangeTransformer;
+    private Map<String, ViewPager.PageTransformer> mTransformerMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +64,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtnChangeTransformer.setOnClickListener(this);
 
         mVpPager.setPageTransformer(true, new DefaultTransformer());
-        mVpPager.setPageMargin(30);
         mVpPager.setAdapter(new PagerAdapter() {
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
+
+                FrameLayout page = new FrameLayout(MainActivity.this);
                 TextView mText = new TextView(MainActivity.this);
                 int bg = Color.rgb((int) Math.floor(Math.random() * 128) + 64,
                         (int) Math.floor(Math.random() * 128) + 64,
@@ -55,9 +78,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mText.setText(String.format(Locale.getDefault(), "Page %d", position + 1));
                 mText.setTextSize(30);
                 mText.setTextColor(Color.WHITE);
+                mText.setTag(OverspreadTransformer.TAG_PARALLAX);
 
-                container.addView(mText, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                return mText;
+                page.addView(mText, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+
+                container.addView(page, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                return page;
             }
 
             @Override
@@ -83,7 +109,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         //底部弹出的带或不带取消按钮的弹窗
-        final List<String> strings = Arrays.asList("AccordionTransformer",
+        mTransformerMap.put("AccordionTransformer", new AccordionTransformer());
+        mTransformerMap.put("BackgroundToForegroundTransformer", new BackgroundToForegroundTransformer());
+        mTransformerMap.put("CubeInTransformer", new CubeInTransformer());
+        mTransformerMap.put("CubeOutTransformer", new CubeOutTransformer());
+        mTransformerMap.put("DefaultTransformer", new DefaultTransformer());
+        mTransformerMap.put("DepthPageTransformer", new DepthPageTransformer());
+        mTransformerMap.put("FlipHorizontalTransformer", new FlipHorizontalTransformer());
+        mTransformerMap.put("FlipVerticalTransformer", new FlipVerticalTransformer());
+        mTransformerMap.put("ForegroundToBackgroundTransformer", new ForegroundToBackgroundTransformer());
+        mTransformerMap.put("OverspreadTransformer", new OverspreadTransformer());
+        mTransformerMap.put("RotateDownTransformer", new RotateDownTransformer());
+        mTransformerMap.put("RotateUpTransformer", new RotateUpTransformer());
+        mTransformerMap.put("ScaleInOutTransformer", new ScaleInOutTransformer());
+        mTransformerMap.put("StackTransformer", new StackTransformer());
+        mTransformerMap.put("TabletTransformer", new TabletTransformer());
+        mTransformerMap.put("ZoomInTransformer", new ZoomInTransformer());
+        mTransformerMap.put("ZoomOutSlideTransformer", new ZoomOutSlideTransformer());
+        mTransformerMap.put("ZoomOutTransformer", new ZoomOutTransformer());
+
+        final List<String> strings = Arrays.asList(
+                "AccordionTransformer",
                 "BackgroundToForegroundTransformer",
                 "CubeInTransformer",
                 "CubeOutTransformer",
@@ -92,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 "FlipHorizontalTransformer",
                 "FlipVerticalTransformer",
                 "ForegroundToBackgroundTransformer",
+                "OverspreadTransformer",
                 "RotateDownTransformer",
                 "RotateUpTransformer",
                 "ScaleInOutTransformer",
@@ -99,64 +146,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 "TabletTransformer",
                 "ZoomInTransformer",
                 "ZoomOutSlideTransformer",
-                "ZoomOutTransformer");
+                "ZoomOutTransformer"
+        );
 
         bottomSheetDialog = StytledDialog.showBottomItemDialog(MainActivity.this, strings, "cancel", true, true, new MyItemDialogListener() {
             @Override
             public void onItemClick(String text, int position) {
                 Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
-                switch (position) {
-                    case 0:
-                        mVpPager.setPageTransformer(true, new AccordionTransformer());
-                        break;
-                    case 1:
-                        mVpPager.setPageTransformer(true, new BackgroundToForegroundTransformer());
-                        break;
-                    case 2:
-                        mVpPager.setPageTransformer(true, new CubeInTransformer());
-                        break;
-                    case 3:
-                        mVpPager.setPageTransformer(true, new CubeOutTransformer());
-                        break;
-                    case 4:
-                        mVpPager.setPageTransformer(true, new DefaultTransformer());
-                        break;
-                    case 5:
-                        mVpPager.setPageTransformer(true, new DepthPageTransformer());
-                        break;
-                    case 6:
-                        mVpPager.setPageTransformer(true, new FlipHorizontalTransformer());
-                        break;
-                    case 7:
-                        mVpPager.setPageTransformer(true, new FlipVerticalTransformer());
-                        break;
-                    case 8:
-                        mVpPager.setPageTransformer(true, new ForegroundToBackgroundTransformer());
-                        break;
-                    case 9:
-                        mVpPager.setPageTransformer(true, new RotateDownTransformer());
-                        break;
-                    case 10:
-                        mVpPager.setPageTransformer(true, new RotateUpTransformer());
-                        break;
-                    case 11:
-                        mVpPager.setPageTransformer(true, new ScaleInOutTransformer());
-                        break;
-                    case 12:
-                        mVpPager.setPageTransformer(true, new StackTransformer());
-                        break;
-                    case 13:
-                        mVpPager.setPageTransformer(true, new TabletTransformer());
-                        break;
-                    case 14:
-                        mVpPager.setPageTransformer(true, new ZoomInTransformer());
-                        break;
-                    case 15:
-                        mVpPager.setPageTransformer(true, new ZoomOutSlideTransformer());
-                        break;
-                    case 16:
-                        mVpPager.setPageTransformer(true, new ZoomOutTransformer());
-                        break;
+                if (mTransformerMap.get(text) != null) {
+                    mVpPager.setPageTransformer(true, mTransformerMap.get(text));
                 }
             }
 
@@ -183,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_change_transformer:
                 bottomSheetDialog.show();
                 break;
+            default:
         }
     }
 }

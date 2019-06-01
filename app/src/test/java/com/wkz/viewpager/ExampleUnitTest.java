@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.viewpagertransformer;
+package com.wkz.viewpager;
 
 import org.junit.Test;
 

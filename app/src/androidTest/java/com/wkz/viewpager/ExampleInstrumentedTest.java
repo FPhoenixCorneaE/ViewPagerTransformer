@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.viewpagertransformer;
+package com.wkz.viewpager;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
