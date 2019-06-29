@@ -3,9 +3,9 @@ package com.wkz.viewpager;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +22,7 @@ import com.wkz.viewpager.transformer.CubeInTransformer;
 import com.wkz.viewpager.transformer.CubeOutTransformer;
 import com.wkz.viewpager.transformer.DefaultTransformer;
 import com.wkz.viewpager.transformer.DepthPageTransformer;
+import com.wkz.viewpager.transformer.FadeOutFadeInTransformer;
 import com.wkz.viewpager.transformer.FlipHorizontalTransformer;
 import com.wkz.viewpager.transformer.FlipVerticalTransformer;
 import com.wkz.viewpager.transformer.ForegroundToBackgroundTransformer;
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTransformerMap.put("CubeOutTransformer", new CubeOutTransformer());
         mTransformerMap.put("DefaultTransformer", new DefaultTransformer());
         mTransformerMap.put("DepthPageTransformer", new DepthPageTransformer());
+        mTransformerMap.put("FadeOutFadeInTransformer", new FadeOutFadeInTransformer());
         mTransformerMap.put("FlipHorizontalTransformer", new FlipHorizontalTransformer());
         mTransformerMap.put("FlipVerticalTransformer", new FlipVerticalTransformer());
         mTransformerMap.put("ForegroundToBackgroundTransformer", new ForegroundToBackgroundTransformer());
@@ -135,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 "CubeOutTransformer",
                 "DefaultTransformer",
                 "DepthPageTransformer",
+                "FadeOutFadeInTransformer",
                 "FlipHorizontalTransformer",
                 "FlipVerticalTransformer",
                 "ForegroundToBackgroundTransformer",
