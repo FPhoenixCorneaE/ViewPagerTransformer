@@ -1,18 +1,20 @@
 package com.wkz.viewpager.transformer;
 
+import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
+
 import android.view.View;
 
 import com.nineoldandroids.view.ViewHelper;
 
 /**
- * Created on 2017/6/30.
+ * @desc 基础转换效果
+ * @date 2017-06-30
  */
-
-public abstract class BaseTransformer implements ViewPager.PageTransformer {
+public abstract class AbstractBaseTransformer implements ViewPager.PageTransformer {
 
     @Override
-    public void transformPage(View page, float position) {
+    public void transformPage(@NonNull View page, float position) {
         onPreTransform(page, position);
         onTransform(page, position);
         onPostTransform(page, position);

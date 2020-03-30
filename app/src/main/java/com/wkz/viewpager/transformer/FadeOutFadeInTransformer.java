@@ -3,29 +3,24 @@ package com.wkz.viewpager.transformer;
 import android.view.View;
 
 /**
- * 淡出淡入转场效果
- *
- * @author wkz
- * @date 2019/6/29
+ * @desc 淡出淡入的转换效果
+ * @date 2019-06-29
  */
-public class FadeOutFadeInTransformer extends BaseTransformer {
+public class FadeOutFadeInTransformer extends AbstractBaseTransformer {
 
     /**
      * 最小透明度
      */
     private static final float MIN_ALPHA = 0.0f;
 
-
     @Override
     protected void onTransform(View page, float position) {
         // 得到view宽
         int pageWidth = page.getWidth();
-
         if (position < -1) {
             // [-Infinity,-1)
             // This page is way off-screen to the left. 出了左边屏幕
             page.setAlpha(0);
-
         } else if (position <= 1) {
             // [-1,1]
             if (position < 0) {
@@ -44,7 +39,7 @@ public class FadeOutFadeInTransformer extends BaseTransformer {
             // 透明度改变Log
             page.setAlpha(alphaFactor);
         } else { // (1,+Infinity]
-            // This page is way off-screen to the right.    出了右边屏幕
+            // This page is way off-screen to the right. 出了右边屏幕
             page.setAlpha(0);
         }
     }

@@ -5,10 +5,10 @@ import android.view.View;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
- * Created on 2017/6/30.
+ * @desc 前景到后景的转换效果
+ * @date 2017-06-30
  */
-
-public class ForegroundToBackgroundTransformer extends BaseTransformer {
+public class ForegroundToBackgroundTransformer extends AbstractBaseTransformer {
     @Override
     protected void onTransform(View page, float position) {
         float pageWidth = page.getWidth();

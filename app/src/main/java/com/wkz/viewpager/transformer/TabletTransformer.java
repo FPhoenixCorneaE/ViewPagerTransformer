@@ -7,10 +7,10 @@ import android.view.View;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
- * Created on 2017/6/30.
+ * @desc 平板的转换效果
+ * @date 2017-06-30
  */
-
-public class TabletTransformer extends BaseTransformer {
+public class TabletTransformer extends AbstractBaseTransformer {
 
     private Matrix mMatrix = new Matrix();
     private Camera mCamera = new Camera();

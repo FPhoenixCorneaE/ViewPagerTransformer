@@ -5,10 +5,10 @@ import android.view.View;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
- * Created on 2017/6/30.
+ * @desc 像手风琴一样折叠的转换效果
+ * @date 2017-06-30
  */
-
-public class AccordionTransformer extends BaseTransformer {
+public class AccordionTransformer extends AbstractBaseTransformer {
 
     @Override
     protected void onTransform(View page, float position) {

@@ -5,10 +5,10 @@ import android.view.View;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
- * Created on 2017/6/30.
+ * @desc 深度页面的转换效果
+ * @date 2017-06-30
  */
-
-public class DepthPageTransformer extends BaseTransformer {
+public class DepthPageTransformer extends AbstractBaseTransformer {
     private static final float MIN_SCALE = 0.75F;
 
     @Override

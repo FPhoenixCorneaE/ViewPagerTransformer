@@ -5,10 +5,10 @@ import android.view.View;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
- * Created on 2017/6/30.
+ * @desc 缩小滑动的转换效果
+ * @date 2017-06-30
  */
-
-public class ZoomOutSlideTransformer extends BaseTransformer {
+public class ZoomOutSlideTransformer extends AbstractBaseTransformer {
 
     private static final float MIN_SCALE = 0.85F;
     private static final float MIN_ALPHA = 0.5F;

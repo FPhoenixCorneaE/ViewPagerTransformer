@@ -5,10 +5,10 @@ import android.view.View;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
- * Created on 2017/6/30.
+ * @desc 缩小的转换效果
+ * @date 2017-06-30
  */
-
-public class ZoomOutTransformer extends BaseTransformer {
+public class ZoomOutTransformer extends AbstractBaseTransformer {
 
     @Override
     protected void onTransform(View page, float position) {

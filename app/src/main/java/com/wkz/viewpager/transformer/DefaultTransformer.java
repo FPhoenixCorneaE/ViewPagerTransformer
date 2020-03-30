@@ -3,10 +3,10 @@ package com.wkz.viewpager.transformer;
 import android.view.View;
 
 /**
- * Created on 2017/6/30.
+ * @desc 默认转换效果
+ * @date 2017-06-30
  */
-
-public class DefaultTransformer extends BaseTransformer {
+public class DefaultTransformer extends AbstractBaseTransformer {
     @Override
     protected void onTransform(View page, float position) {
 

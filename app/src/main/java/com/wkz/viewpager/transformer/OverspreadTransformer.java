@@ -5,13 +5,10 @@ import android.view.View;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
- * 滑动遮盖效果
- * wallpaper必须是page的子view,并且必须设置tag为TAG_PARALLAX
- *
- * @author Administrator
- * @date 2019/06/02
+ * @desc 滑动遮盖效果, wallpaper必须是page的子view, 并且必须设置tag为TAG_PARALLAX
+ * @date 2019-06-02
  */
-public class OverspreadTransformer extends BaseTransformer {
+public class OverspreadTransformer extends AbstractBaseTransformer {
 
     public static final String TAG_PARALLAX = "tag_parallax";
 

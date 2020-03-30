@@ -5,10 +5,10 @@ import android.view.View;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
- * Created on 2017/6/30.
+ * @desc 立方体向内的转换效果
+ * @date 2017-06-30
  */
-
-public class CubeInTransformer extends BaseTransformer {
+public class CubeInTransformer extends AbstractBaseTransformer {
     @Override
     protected void onTransform(View page, float position) {
         ViewHelper.setPivotX(page, position > 0 ? 0F : page.getWidth());

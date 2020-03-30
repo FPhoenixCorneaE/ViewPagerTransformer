@@ -5,10 +5,10 @@ import android.view.View;
 import com.nineoldandroids.view.ViewHelper;
 
 /**
- * Created on 2017/6/30.
+ * @desc 水平快速翻转的转换效果
+ * @date 2017-06-30
  */
-
-public class FlipHorizontalTransformer extends BaseTransformer {
+public class FlipHorizontalTransformer extends AbstractBaseTransformer {
 
     @Override
     protected void onTransform(View page, float position) {
