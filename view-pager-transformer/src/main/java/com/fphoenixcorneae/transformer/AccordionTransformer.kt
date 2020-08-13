@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.view_pager_transformer
+package com.fphoenixcorneae.transformer
 
 import android.view.View
 import com.nineoldandroids.view.ViewHelper

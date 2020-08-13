@@ -1,19 +1,19 @@
-package com.fphoenixcorneae.view_pager_transformer
+package com.fphoenixcorneae.transformer
 
 import android.view.View
 import com.nineoldandroids.view.ViewHelper
 
 /**
- * @desc 右转一定角度的转换效果
+ * @desc 左转一定角度的转换效果
  * @date 2017-06-30
  */
-class RotateUpTransformer : AbstractBaseTransformer() {
+class RotateDownTransformer : AbstractBaseTransformer() {
     override fun onTransform(page: View, position: Float) {
         val pageWidth = page.width.toFloat()
-        val rotation = ROT_MOD * position
+        val pageHeight = page.height.toFloat()
+        val rotation = ROT_MOD * position * -1.25f
         ViewHelper.setPivotX(page, pageWidth * 0.5f)
-        ViewHelper.setPivotY(page, 0f)
-        ViewHelper.setTranslationX(page, 0f)
+        ViewHelper.setPivotY(page, pageHeight)
         ViewHelper.setRotation(page, rotation)
     }
 

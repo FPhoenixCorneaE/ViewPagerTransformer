@@ -16,7 +16,7 @@ import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.PageTransformer
 import com.hss01248.lib.MyItemDialogListener
 import com.hss01248.lib.StytledDialog
-import com.fphoenixcorneae.view_pager_transformer.*
+import com.fphoenixcorneae.transformer.*
 import java.util.*
 import kotlin.math.floor
 
