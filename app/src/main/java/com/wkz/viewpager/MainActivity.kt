@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 mText.text = String.format(Locale.getDefault(), "Page %d", position + 1)
                 mText.textSize = 30f
                 mText.setTextColor(Color.WHITE)
-                mText.tag = OverspreadTransformer.Companion.TAG_PARALLAX
+                mText.tag = OverspreadTransformer.TAG_PARALLAX
                 page.addView(mText, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
                 container.addView(page, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
                 return page
@@ -83,6 +83,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mTransformerMap["CubeOutTransformer"] = CubeOutTransformer()
         mTransformerMap["DefaultTransformer"] = DefaultTransformer()
         mTransformerMap["DepthPageTransformer"] = DepthPageTransformer()
+        mTransformerMap["DrawerTransformer"] = DrawerTransformer()
         mTransformerMap["FadeOutFadeInTransformer"] = FadeOutFadeInTransformer()
         mTransformerMap["FlipHorizontalTransformer"] = FlipHorizontalTransformer()
         mTransformerMap["FlipVerticalTransformer"] = FlipVerticalTransformer()
@@ -93,7 +94,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mTransformerMap["ScaleInOutTransformer"] = ScaleInOutTransformer()
         mTransformerMap["StackTransformer"] = StackTransformer()
         mTransformerMap["TabletTransformer"] = TabletTransformer()
+        mTransformerMap["VerticalTransformer"] = VerticalTransformer()
         mTransformerMap["ZoomInTransformer"] = ZoomInTransformer()
+        mTransformerMap["ZoomOutPageTransformer"] = ZoomOutPageTransformer()
         mTransformerMap["ZoomOutSlideTransformer"] = ZoomOutSlideTransformer()
         mTransformerMap["ZoomOutTransformer"] = ZoomOutTransformer()
         val strings = listOf(
@@ -103,6 +106,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 "CubeOutTransformer",
                 "DefaultTransformer",
                 "DepthPageTransformer",
+                "DrawerTransformer",
                 "FadeOutFadeInTransformer",
                 "FlipHorizontalTransformer",
                 "FlipVerticalTransformer",
@@ -113,7 +117,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 "ScaleInOutTransformer",
                 "StackTransformer",
                 "TabletTransformer",
+                "VerticalTransformer",
                 "ZoomInTransformer",
+                "ZoomOutPageTransformer",
                 "ZoomOutSlideTransformer",
                 "ZoomOutTransformer"
         )
