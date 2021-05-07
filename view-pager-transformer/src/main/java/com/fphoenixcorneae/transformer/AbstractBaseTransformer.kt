@@ -1,6 +1,7 @@
 package com.fphoenixcorneae.transformer
 
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 
 /**
@@ -49,6 +50,17 @@ abstract class AbstractBaseTransformer : ViewPager2.PageTransformer {
 
     protected fun max(`val`: Float, max: Float): Float {
         return kotlin.math.max(`val`, max)
+    }
+
+    protected fun requireViewPager(page: View): ViewPager2 {
+        val parent = page.parent
+        val parentParent = parent.parent
+        if (parent is RecyclerView && parentParent is ViewPager2) {
+            return parentParent
+        }
+        throw IllegalStateException(
+            "Expected the page view to be managed by a ViewPager2 instance."
+        )
     }
 
     protected abstract fun onTransform(page: View, position: Float)

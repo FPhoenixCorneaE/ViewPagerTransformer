@@ -67,17 +67,6 @@ class ScaleTransformer(
         }
     }
 
-    private fun requireViewPager(page: View): ViewPager2 {
-        val parent = page.parent
-        val parentParent = parent.parent
-        if (parent is RecyclerView && parentParent is ViewPager2) {
-            return parentParent
-        }
-        throw IllegalStateException(
-            "Expected the page view to be managed by a ViewPager2 instance."
-        )
-    }
-
     companion object {
         private const val DEFAULT_CENTER = 0.5f
     }
