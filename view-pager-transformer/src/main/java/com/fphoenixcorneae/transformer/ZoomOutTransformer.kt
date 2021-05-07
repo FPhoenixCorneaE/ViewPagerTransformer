@@ -1,7 +1,6 @@
 package com.fphoenixcorneae.transformer
 
 import android.view.View
-import com.nineoldandroids.view.ViewHelper
 import kotlin.math.abs
 
 /**
@@ -9,15 +8,18 @@ import kotlin.math.abs
  * @date 2017-06-30
  */
 class ZoomOutTransformer : AbstractBaseTransformer() {
+
     override fun onTransform(page: View, position: Float) {
         val scale = 1f + abs(position)
-        ViewHelper.setScaleX(page, scale)
-        ViewHelper.setScaleY(page, scale)
-        ViewHelper.setPivotX(page, page.width * 0.5f)
-        ViewHelper.setPivotY(page, page.height * 0.5f)
-        ViewHelper.setAlpha(page, if (position < -1f || position > 1f) 0f else 1f - (scale - 1f))
-        if (position == -1f) {
-            ViewHelper.setTranslationX(page, page.width * -1f)
+        page.apply {
+            scaleX = scale
+            scaleY = scale
+            pivotX = page.width * 0.5f
+            pivotY = page.height * 0.5f
+            alpha = if (position < -1f || position > 1f) 0f else 1f - (scale - 1f)
+            if (position == -1f) {
+                translationX = page.width * -1f
+            }
         }
     }
 }

@@ -11,24 +11,23 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager.widget.PagerAdapter
-import androidx.viewpager.widget.ViewPager
-import androidx.viewpager.widget.ViewPager.PageTransformer
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
+import com.fphoenixcorneae.transformer.*
 import com.hss01248.lib.MyItemDialogListener
 import com.hss01248.lib.StytledDialog
-import com.fphoenixcorneae.transformer.*
 import java.util.*
 import kotlin.math.floor
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    private var mVpPager: ViewPager? = null
+    private var mVpPager: ViewPager2? = null
     var bottomSheetDialog: Dialog? = null
 
     /**
      * 切换转换效果
      */
     private var mBtnChangeTransformer: Button? = null
-    private val mTransformerMap: MutableMap<String, PageTransformer?> = HashMap()
+    private val mTransformerMap: MutableMap<String, ViewPager2.PageTransformer?> = HashMap()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,42 +35,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-        mVpPager = findViewById<View>(R.id.vp_pager) as ViewPager
+        mVpPager = findViewById<View>(R.id.vp_pager) as ViewPager2
         mBtnChangeTransformer = findViewById<View>(R.id.btn_change_transformer) as Button
         mBtnChangeTransformer!!.setOnClickListener(this)
-        mVpPager!!.setPageTransformer(true, DefaultTransformer())
-        mVpPager!!.adapter = object : PagerAdapter() {
-            override fun instantiateItem(container: ViewGroup, position: Int): Any {
-                val page = FrameLayout(this@MainActivity)
-                val mText = TextView(this@MainActivity)
-                val bg = Color.rgb(floor(Math.random() * 128).toInt() + 64,
-                        floor(Math.random() * 128).toInt() + 64,
-                        floor(Math.random() * 128).toInt() + 64)
-                mText.setBackgroundColor(bg)
-                mText.gravity = Gravity.CENTER
-                mText.text = String.format(Locale.getDefault(), "Page %d", position + 1)
-                mText.textSize = 30f
-                mText.setTextColor(Color.WHITE)
-                mText.tag = OverspreadTransformer.TAG_PARALLAX
-                page.addView(mText, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
-                container.addView(page, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-                return page
+        mVpPager!!.setPageTransformer(DefaultTransformer())
+        mVpPager!!.adapter = object : RecyclerView.Adapter<MyViewHolder>() {
+            override fun onCreateViewHolder(
+                parent: ViewGroup,
+                viewType: Int
+            ): MyViewHolder {
+                val page = FrameLayout(this@MainActivity).apply {
+                    layoutParams = RecyclerView.LayoutParams(-1, -1)
+                }
+                return MyViewHolder(page)
             }
 
-            override fun getCount(): Int {
+            override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+                holder.textView.text = String.format(Locale.getDefault(), "Page %d", position + 1)
+            }
+
+            override fun getItemCount(): Int {
                 return 10
-            }
-
-            override fun isViewFromObject(view: View, `object`: Any): Boolean {
-                return view === `object`
-            }
-
-            override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-                container.removeView(`object` as View)
-            }
-
-            override fun getItemPosition(`object`: Any): Int {
-                return POSITION_NONE
             }
         }
 
@@ -92,6 +76,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mTransformerMap["RotateDownTransformer"] = RotateDownTransformer()
         mTransformerMap["RotateUpTransformer"] = RotateUpTransformer()
         mTransformerMap["ScaleInOutTransformer"] = ScaleInOutTransformer()
+        mTransformerMap["ScaleTransformer"] = ScaleTransformer()
         mTransformerMap["StackTransformer"] = StackTransformer()
         mTransformerMap["TabletTransformer"] = TabletTransformer()
         mTransformerMap["VerticalTransformer"] = VerticalTransformer()
@@ -100,40 +85,70 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mTransformerMap["ZoomOutSlideTransformer"] = ZoomOutSlideTransformer()
         mTransformerMap["ZoomOutTransformer"] = ZoomOutTransformer()
         val strings = listOf(
-                "AccordionTransformer",
-                "BackgroundToForegroundTransformer",
-                "CubeInTransformer",
-                "CubeOutTransformer",
-                "DefaultTransformer",
-                "DepthPageTransformer",
-                "DrawerTransformer",
-                "FadeOutFadeInTransformer",
-                "FlipHorizontalTransformer",
-                "FlipVerticalTransformer",
-                "ForegroundToBackgroundTransformer",
-                "OverspreadTransformer",
-                "RotateDownTransformer",
-                "RotateUpTransformer",
-                "ScaleInOutTransformer",
-                "StackTransformer",
-                "TabletTransformer",
-                "VerticalTransformer",
-                "ZoomInTransformer",
-                "ZoomOutPageTransformer",
-                "ZoomOutSlideTransformer",
-                "ZoomOutTransformer"
+            "AccordionTransformer",
+            "BackgroundToForegroundTransformer",
+            "CubeInTransformer",
+            "CubeOutTransformer",
+            "DefaultTransformer",
+            "DepthPageTransformer",
+            "DrawerTransformer",
+            "FadeOutFadeInTransformer",
+            "FlipHorizontalTransformer",
+            "FlipVerticalTransformer",
+            "ForegroundToBackgroundTransformer",
+            "OverspreadTransformer",
+            "RotateDownTransformer",
+            "RotateUpTransformer",
+            "ScaleInOutTransformer",
+            "ScaleTransformer",
+            "StackTransformer",
+            "TabletTransformer",
+            "VerticalTransformer",
+            "ZoomInTransformer",
+            "ZoomOutPageTransformer",
+            "ZoomOutSlideTransformer",
+            "ZoomOutTransformer"
         )
-        bottomSheetDialog = StytledDialog.showBottomItemDialog(this@MainActivity, strings, "cancel", true, true, object : MyItemDialogListener() {
-            override fun onItemClick(text: String, position: Int) {
-                Toast.makeText(this@MainActivity, text, Toast.LENGTH_SHORT).show()
-                if (mTransformerMap[text] != null) {
-                    mVpPager!!.setPageTransformer(true, mTransformerMap[text])
+        bottomSheetDialog = StytledDialog.showBottomItemDialog(
+            this@MainActivity,
+            strings,
+            "cancel",
+            true,
+            true,
+            object : MyItemDialogListener() {
+                override fun onItemClick(text: String, position: Int) {
+                    Toast.makeText(this@MainActivity, text, Toast.LENGTH_SHORT).show()
+                    if (mTransformerMap[text] != null) {
+                        mVpPager!!.setPageTransformer(mTransformerMap[text])
+                    }
                 }
-            }
 
-            override fun onBottomBtnClick() {}
-        })
+                override fun onBottomBtnClick() {}
+            })
         bottomSheetDialog!!.dismiss()
+    }
+
+    internal class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var textView: TextView = TextView(view.context)
+
+        init {
+            val bg = Color.rgb(
+                floor(Math.random() * 128).toInt() + 64,
+                floor(Math.random() * 128).toInt() + 64,
+                floor(Math.random() * 128).toInt() + 64
+            )
+            textView.setBackgroundColor(bg)
+            textView.gravity = Gravity.CENTER
+            textView.textSize = 30f
+            textView.setTextColor(Color.WHITE)
+            textView.tag = OverspreadTransformer.TAG_PARALLAX
+            (view as FrameLayout).addView(textView)
+            (textView.layoutParams as FrameLayout.LayoutParams).apply {
+                width = FrameLayout.LayoutParams.MATCH_PARENT
+                height = FrameLayout.LayoutParams.MATCH_PARENT
+                gravity = Gravity.CENTER
+            }
+        }
     }
 
     override fun onBackPressed() {

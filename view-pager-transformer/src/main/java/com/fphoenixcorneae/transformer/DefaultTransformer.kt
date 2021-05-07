@@ -7,6 +7,8 @@ import android.view.View
  * @date 2017-06-30
  */
 class DefaultTransformer : AbstractBaseTransformer() {
-    override fun onTransform(page: View, position: Float) {}
+
     override val isPagingEnabled: Boolean = true
+
+    override fun onTransform(page: View, position: Float) {}
 }

@@ -8,6 +8,7 @@ import kotlin.math.abs
  * @date 2019-06-29
  */
 class FadeOutFadeInTransformer : AbstractBaseTransformer() {
+
     override fun onTransform(page: View, position: Float) {
         // 得到view宽
         val pageWidth = page.width

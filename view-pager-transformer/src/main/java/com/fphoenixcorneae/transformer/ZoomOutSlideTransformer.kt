@@ -1,7 +1,6 @@
 package com.fphoenixcorneae.transformer
 
 import android.view.View
-import com.nineoldandroids.view.ViewHelper
 import kotlin.math.abs
 
 /**
@@ -9,6 +8,7 @@ import kotlin.math.abs
  * @date 2017-06-30
  */
 class ZoomOutSlideTransformer : AbstractBaseTransformer() {
+
     override fun onTransform(page: View, position: Float) {
         if (position >= -1 || position <= 1) {
             // Modify the default slide transition to shrink the page as well
@@ -18,22 +18,19 @@ class ZoomOutSlideTransformer : AbstractBaseTransformer() {
             val horzMargin = page.width * (1 - scaleFactor) / 2
 
             // Center vertically
-            ViewHelper.setPivotY(page, 0.5f * height)
-            when {
-                position < 0 -> {
-                    ViewHelper.setTranslationX(page, horzMargin - vertMargin / 2)
-                }
-                else -> {
-                    ViewHelper.setTranslationX(page, -horzMargin + vertMargin / 2)
-                }
+            page.pivotY = height * 0.5f
+            page.translationX = if (position < 0) {
+                horzMargin - vertMargin / 2
+            } else {
+                -horzMargin + vertMargin / 2
             }
 
             // Scale the page down (between MIN_SCALE and 1)
-            ViewHelper.setScaleX(page, scaleFactor)
-            ViewHelper.setScaleY(page, scaleFactor)
+            page.scaleX = scaleFactor
+            page.scaleY = scaleFactor
 
             // Fade the page relative to its size.
-            ViewHelper.setAlpha(page, MIN_ALPHA + (scaleFactor - MIN_SCALE) / (1 - MIN_SCALE) * (1 - MIN_ALPHA))
+            page.alpha = MIN_ALPHA + (scaleFactor - MIN_SCALE) / (1 - MIN_SCALE) * (1 - MIN_ALPHA)
         }
     }
 
